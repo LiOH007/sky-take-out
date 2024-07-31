@@ -47,7 +47,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
-            log.info("当前员工id：", empId);
+            log.info("当前员工id：{}", empId);
 
             //将员工的id存进ThreadLocal中
             BaseContext.setCurrentId(empId);
@@ -60,6 +60,14 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         }
     }
 
+    /**
+     * 清空线程池
+     *
+     * @param request  request
+     * @param response response
+     * @param handler  handler
+     * @param ex       ex
+     **/
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         //记得清空，不然会内存溢出
