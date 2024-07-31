@@ -119,4 +119,16 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * 根据id查询员工
+     *
+     * @param id id
+     * @return {@link Result }<{@link Employee }>
+     **/
+    @GetMapping("{id}")
+    public Result<Employee> getById(@PathVariable Long id){
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
 }
