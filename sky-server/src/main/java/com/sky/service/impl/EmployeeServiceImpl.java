@@ -9,6 +9,7 @@ import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.PasswordEditDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
@@ -82,13 +83,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //默认密码为123456，md5加密
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-
-        //
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        //使用切面自动填充
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//
+//        //
+//        employee.setCreateUser(BaseContext.getCurrentId());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.inset(employee);
     }
@@ -142,9 +143,30 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        //使用切面自动填充了
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.update(employee);
     }
+
+    /**
+     * 修改密码
+     *
+     * @param passwordEditDTO password edit dto
+     **/
+//    @Override
+//    public void editPassword(PasswordEditDTO passwordEditDTO) {
+//
+//        String old = DigestUtils.md5DigestAsHex(passwordEditDTO.getOldPassword().getBytes());
+//        Employee employee = employeeMapper.getById(BaseContext.getCurrentId());
+//        if(old.equals(employee.getPassword())){
+//
+//        }
+//         employee = Employee.builder()
+//                .id(BaseContext.getCurrentId())
+//                .password(DigestUtils.md5DigestAsHex(passwordEditDTO.getNewPassword().getBytes()))
+//                .build();
+//        employeeMapper.update(employee);
+//    }
 
 }
