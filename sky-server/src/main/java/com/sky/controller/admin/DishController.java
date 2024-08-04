@@ -1,15 +1,15 @@
 package com.sky.controller.admin;
 
+import com.github.pagehelper.Page;
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/dish")
@@ -30,6 +30,19 @@ public class DishController {
     public Result save(@RequestBody DishDTO dishDTO){
         dishService.save(dishDTO);
         return Result.success();
+    }
+
+    /**
+     * 分页查询菜品
+     *
+     * @param dishPageQueryDTO dish page query dto
+     * @return {@link Result }<{@link PageResult }>
+     **/
+    @GetMapping("/page")
+    @ApiOperation("分页查询菜品")
+    public Result<PageResult> query(DishPageQueryDTO dishPageQueryDTO){
+        PageResult query = dishService.query(dishPageQueryDTO);
+        return Result.success(query);
     }
 
 }
