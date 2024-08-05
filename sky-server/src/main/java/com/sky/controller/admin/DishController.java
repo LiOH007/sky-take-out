@@ -8,8 +8,13 @@ import com.sky.result.Result;
 import com.sky.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Results;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/dish")
@@ -45,4 +50,17 @@ public class DishController {
         return Result.success(query);
     }
 
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return {@link Result }
+     **/
+    @DeleteMapping
+    @ApiOperation("批量删除")
+    public Result delete(@RequestParam List<Long> ids){
+        dishService.delete(ids);
+        return Result.success();
+    }
 }

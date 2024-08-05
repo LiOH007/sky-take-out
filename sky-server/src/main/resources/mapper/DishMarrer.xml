@@ -24,4 +24,17 @@
         </where>
         order by create_Time desc
     </select>
+    <select id="getByIds" resultType="java.lang.Integer">
+        select dish.status from dish where dish.id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <delete id="delete">
+        DELETE from dish where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

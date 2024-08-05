@@ -11,4 +11,5 @@ import java.util.List;
 public interface DishFlavorMapper {
     void insertBatch(List<DishFlavor> flavors);
 
+    void delete(List<Long> dishIds);
 }
