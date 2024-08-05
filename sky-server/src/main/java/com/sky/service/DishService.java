@@ -13,4 +13,6 @@ public interface DishService {
     PageResult query(DishPageQueryDTO dishPageQueryDTO);
 
     void delete(List<Long> ids);
+
+    void status(Integer status, Long id);
 }

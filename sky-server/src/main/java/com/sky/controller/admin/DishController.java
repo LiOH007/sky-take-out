@@ -63,4 +63,18 @@ public class DishController {
         dishService.delete(ids);
         return Result.success();
     }
+
+    /**
+     * 修改在售状态
+     *
+     * @param status status
+     * @param id     id
+     * @return {@link Result }
+     **/
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用停用菜品")
+    public Result statuss(@PathVariable Integer status,Long id){
+        dishService.status(status,id);
+        return Result.success();
+    }
 }

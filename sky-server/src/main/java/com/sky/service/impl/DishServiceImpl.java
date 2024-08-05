@@ -96,4 +96,20 @@ public class DishServiceImpl implements DishService {
         //删除口味信息
         dishFlavorMapper.delete(ids);
     }
+
+    /**
+     * 起售，停售
+     *
+     * @param status status
+     * @param id     id
+     **/
+    @Override
+    public void status(Integer status, Long id) {
+        log.info("修改在售状态{},{}",status,id);
+        Dish dish = Dish.builder()
+                .status(status)
+                .id(id)
+                .build();
+        dishMapper.update(dish);
+    }
 }
