@@ -6,6 +6,7 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Delete;
@@ -77,4 +78,19 @@ public class DishController {
         dishService.status(status,id);
         return Result.success();
     }
+
+    @PutMapping
+    @ApiOperation("修改菜品信息")
+    public Result update(@RequestBody DishDTO dishDTO){
+        dishService.update(dishDTO);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查找菜品信息")
+    public Result<DishVO> queryById(@PathVariable Long id){
+        DishVO dishVO =  dishService.queryById(id);
+        return Result.success(dishVO);
+    }
+
 }

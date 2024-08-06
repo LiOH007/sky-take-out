@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -111,5 +112,40 @@ public class DishServiceImpl implements DishService {
                 .id(id)
                 .build();
         dishMapper.update(dish);
+    }
+
+    @Override
+    public void update(DishDTO dishDTO) {
+        log.info("更新菜品{}", dishDTO);
+        //更新菜品信息
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.update(dish);
+        //更新口味信息，覆盖修改
+        List<Long> ids = new ArrayList<>();
+        ids.add(dishDTO.getId());
+        dishFlavorMapper.delete(ids);
+        
+        Long id = dishDTO.getId();
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && !flavors.isEmpty()) {
+            flavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(id);
+            });
+        dishFlavorMapper.insertBatch(flavors);
+    }
+}
+    /**
+     * 根据id查询菜品信息
+     *
+     * @return {@link DishVO }
+     **/
+    @Override
+    public DishVO queryById(Long id) {
+        log.info("查询菜品信息{}",id);
+        DishVO dishVO = dishMapper.getById(id);
+        List<DishFlavor> dishFlavors =  dishFlavorMapper.getByDishId(id);
+        dishVO.setFlavors(dishFlavors);
+        return dishVO;
     }
 }
