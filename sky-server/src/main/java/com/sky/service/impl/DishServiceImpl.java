@@ -75,6 +75,11 @@ public class DishServiceImpl implements DishService {
         return new PageResult(total,list);
     }
 
+    /**
+     * delete
+     *
+     * @param ids ids
+     **/
     @Override
     @Transactional
     public void delete(List<Long> ids) {
@@ -114,7 +119,13 @@ public class DishServiceImpl implements DishService {
         dishMapper.update(dish);
     }
 
+    /**
+     * 修改菜品
+     *
+     * @param dishDTO dish dto
+     **/
     @Override
+    @Transactional
     public void update(DishDTO dishDTO) {
         log.info("更新菜品{}", dishDTO);
         //更新菜品信息
@@ -147,5 +158,19 @@ public class DishServiceImpl implements DishService {
         List<DishFlavor> dishFlavors =  dishFlavorMapper.getByDishId(id);
         dishVO.setFlavors(dishFlavors);
         return dishVO;
+    }
+
+    /**
+     * 根据分类id查询菜品
+     *
+     * @param categoryId category id
+     * @return {@link Dish }
+     **/
+    @Override
+    public List<Dish> queryByCategoryId(Long categoryId) {
+        log.info("查找的分类{}",categoryId);
+        List<Dish> dishes = dishMapper.getByCategoryId(categoryId);
+        return dishes;
+
     }
 }

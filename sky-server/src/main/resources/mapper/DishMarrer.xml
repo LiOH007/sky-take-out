@@ -61,4 +61,8 @@
     <select id="getById" resultType="DishVO">
         select d.*,c.name as categoryName from dish d left join category c on d.category_id = c.id where d.id = #{id}
     </select>
+
+    <select id="getByCategoryId" resultType="com.sky.entity.Dish">
+        select *from dish where category_id = #{categoryId};
+    </select>
 </mapper>
