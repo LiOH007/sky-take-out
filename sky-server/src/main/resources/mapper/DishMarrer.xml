@@ -11,7 +11,7 @@
             (#{name},#{categoryId},#{price},#{image},#{description},#{createTime},#{updateTime},#{createUser},#{updateUser},#{status})
     </insert>
 
-    <select id="pageQuery" resultType="DishVO">
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
         select d.*,c.name as categoryName from dish d left join category c on d.category_id = c.id
         <where>
             <if test="name!=null and name!=''">
@@ -58,7 +58,7 @@
     </update>
 
 
-    <select id="getById" resultType="DishVO">
+    <select id="getById" resultType="com.sky.vo.DishVO">
         select d.*,c.name as categoryName from dish d left join category c on d.category_id = c.id where d.id = #{id}
     </select>
 

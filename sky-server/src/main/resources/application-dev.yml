@@ -8,8 +8,8 @@ sky:
     password: 123456789
   alioss:
     endpoint: oss-cn-hangzhou.aliyuncs.com
-    access-key-id:
-    access-key-secret:
+    access-key-id: 0
+    access-key-secret: 0
     bucket-name: aliyun-demo0
   redis:
     host: localhost
