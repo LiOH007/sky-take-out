@@ -43,5 +43,5 @@ public interface DishMapper {
     DishVO getById(Long id);
 
 
-    List<Dish> getByCategoryId(Long categoryId);
+    List<Dish> getByCategoryId(Dish dish);
 }
