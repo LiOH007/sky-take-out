@@ -69,4 +69,7 @@
             <if test="status!=null">and status= #{status} </if>
         </where>
     </select>
+    <select id="getDishById" resultType="com.sky.entity.Dish">
+        select *from dish where id=#{id}
+    </select>
 </mapper>
